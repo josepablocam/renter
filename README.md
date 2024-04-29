@@ -25,6 +25,8 @@ can save it down in a file called "GMAPS_API_KEY".
 python ./renter.py --input <starting-csv> --cache <folder-to-save-html> --output <resulting-csv> --commute_addresses "<address1>" "<address2>" ...
 ```
 
+See `fetch.ps1` for a full example.
+
 
 ## Possible issues
 * Zillow changes their HTML: this is the most likely long term issue.
