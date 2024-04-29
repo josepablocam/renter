@@ -187,7 +187,7 @@ def main():
         print(f"Creating caching directory {args.cache}")
         os.makedirs(args.cache)
 
-    input_df = pd.read_csv(args.input).head(2)
+    input_df = pd.read_csv(args.input)
     output_records = []
     for url in input_df["url"]:
         print(f"Processing {url}")
