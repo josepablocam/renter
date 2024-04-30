@@ -16,7 +16,10 @@ pip install -r requirements.txt
 ```
 
 Get a google maps API key (see https://developers.google.com/maps/documentation/directions/overview) and then you
-can save it down in a file called "GMAPS_API_KEY".
+can save it down in a file called "GMAPS_API_KEY". You should enable:
+
+* Distance Matrix API
+* Directions API
 
 
 ## Usage

@@ -22,6 +22,7 @@ class Listing:
     rent: int
     ppsf: float
     address: str
+    walkscore: float
 
 
 # NOTE: you should change this as needed
@@ -92,6 +93,8 @@ def get_listing(url: str, cache_file: Optional[str] = None) -> Tuple[Listing, bo
     bedrooms = property_info["bedrooms"]
     bathrooms = property_info["bathrooms"]
     sqft = float(property_info["livingAreaValue"])
+    walkscore = get_walkscore(address)
+
     return (
         Listing(
             url=url,
@@ -101,6 +104,7 @@ def get_listing(url: str, cache_file: Optional[str] = None) -> Tuple[Listing, bo
             rent=rent,
             ppsf=rent / sqft,
             address=address,
+            walkscore=walkscore,
         ),
         used_cache,
     )
@@ -135,6 +139,19 @@ def get_commute_times(
         t = get_commute_time(from_address, to_address, when=when, how=how)
         ts.append(t)
     return ts
+
+
+def get_walkscore(address: str) -> Optional[float]:
+    address_str = "-".join([e.lower().replace(",", "") for e in address.split() if len(e.strip()) > 0])
+    html = _fetch_html(f"https://www.walkscore.com/score/{address_str}")
+    soup = bs4.BeautifulSoup(html, "html.parser")
+    walk_scores = [i for i in soup.find_all("img", alt=True) if "Walk Score" in i['alt']]
+    if len(walk_scores) < 2:
+        return None
+    walk_score_values = [t for t in walk_scores[1]['alt'].split(" ") if t.isdigit()]
+    if len(walk_score_values) == 0:
+        return None
+    return float(walk_score_values[0])
 
 
 def _get_cache_file_path(url: str, cache_folder: str) -> str:
