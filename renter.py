@@ -166,18 +166,31 @@ def get_output_df_record(
         html_path = _get_cache_file_path(url, cache_folder)
     else:
         html_path = None
-    listing, used_cache = get_listing(url, cache_file=html_path)
+
+    used_cache = False
+    try:
+        listing, used_cache = get_listing(url, cache_file=html_path)
+    except Exception as err:
+        print(f"Failed when collecting {url}, you'll need to manually fill this...")
+        print(err)
+        return {"url": url}, used_cache
+
     record = asdict(listing)
 
     # add commuting information
     if addresses is not None and len(addresses) > 0:
         commute_times = {"morning": 8, "evening": 18}
         for timelabel, timevalue in commute_times.items():
-            times = get_commute_times(
-                listing, addresses, when=_get_time(timevalue), how="driving"
-            )
+            try:
+                times = get_commute_times(
+                    listing, addresses, when=_get_time(timevalue), how="driving"
+                )
+            except Exception as err:
+                print(f"Failed to get commute times for {url}, default to None")
+                times = [None] * len(addresses)
             for address, time in zip(addresses, times):
                 record[address + "_" + timelabel] = time
+
     return record, used_cache
 
 
