@@ -12,6 +12,8 @@ import time
 import googlemaps
 import pandas as pd
 
+from fake_useragent import UserAgent
+
 
 @dataclass
 class Listing:
@@ -25,15 +27,11 @@ class Listing:
     walkscore: float
 
 
-# NOTE: you should change this as needed
 HEADERS = {
-    "sec-ch-ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
-    "Referer": "https://www.zillow.com/homedetails/795-Monroe-Dr-NE-Atlanta-GA-30308/35880144_zpid/",
-    "DNT": "1",
-    "sec-ch-ua-mobile": "?0",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "sec-ch-ua-platform": '"Windows"',
+    "Referer": "https://www.google.com",
+    'User-Agent': UserAgent().random
 }
+
 
 GMAPS = None
 

@@ -2,3 +2,4 @@ pandas
 beautifulsoup4
 requests
 googlemaps
+fake-useragent

@@ -39,10 +39,3 @@ and `fetch-example.ps1` for an example you can actually execute.
 * Zillow changes their HTML: this is the most likely long term issue.
 If this happens, you should (1) navigate to a link you want to extract info from, download the HTML, and then inspect and figure out the right
 path to the data you want. Then you can update `get_listing` accordingly.
-
-* Zillow rejects your requests: you may need to update the `HEADERS`
-value. To do so, open chrome, open the developer tools, navigate
-to the zillow link. In the requests, get the first request,
-copy as `curl`. Then you can google for tools that
-change `curl` to Python requests form. You should just take
-the headers reported and update in `renter.py`.
