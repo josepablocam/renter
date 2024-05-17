@@ -15,7 +15,7 @@ And it also doesn't seem to support exporting to CSV.
 First install package requirements (assuming you already
 have Python installed.)
 ```
-pip install -r requirements.txt
+source build.sh
 ```
 
 Get a google maps API key (see https://developers.google.com/maps/documentation/directions/overview) and then you
@@ -28,11 +28,14 @@ can save it down in a file called "GMAPS_API_KEY". You should enable:
 ## Usage
 
 ```
-python ./renter.py --input <starting-csv> --cache <folder-to-save-html> --output <resulting-csv> --commute_addresses "<address1>" "<address2>" ...
+python ./renter.py \
+    --input <starting-csv> \
+    --cache <folder-to-save-html> \
+    --output <resulting-csv> --commute_addresses "<address1>" "<address2>" ...
 ```
 
 See `fetch.ps1` for a full example
-and `fetch-example.ps1` for an example you can actually execute.
+and `fetch-example.ps1 (.sh)` for an example you can actually execute.
 
 
 ## Possible issues
